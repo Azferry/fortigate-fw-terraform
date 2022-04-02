@@ -5,6 +5,9 @@ terraform {
       version = "1.14.0"
     }
   }
+
+  backend "azurerm" {}
+
 }
 
 provider "fortios" {
@@ -13,39 +16,16 @@ provider "fortios" {
   insecure = "true"
 }
 
+module "fw_interfaces" {
+  source = "./interfaces"
 
-resource "fortios_firewall_policy" "trname" {
-  action             = "accept"
-  logtraffic         = "utm"
-  name               = "LAN-WAN"
-  schedule           = "always"
-  nat                = "enable"
+}
 
-  dstaddr {
-    name = "all"
-  }
+module "fw_policy" {
+  source = "./policy"
 
-  dstintf {
-    name = "wan1"
-  }
-
-  srcaddr {
-    name = "VLAN_20_LAN address"
-  }
-
-  srcintf {
-    name = "internal3"
-  }
-
-
-  service {
-    name = "HTTP"
-  }
-  service {
-    name = "HTTPS"
-  }
-  service {
-    name = "DNS"
-  }
+}
+module "fw_system" {
+  source = "./fgsystem"
 
 }
