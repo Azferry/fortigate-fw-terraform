@@ -111,7 +111,7 @@ resource "fortios_firewall_policy" "corp_portainer" {
   nat                = "disable"
 
   dstaddr {
-    name = "Portainer"
+    name = "grp-portainer"
   }
 
   dstintf {
@@ -130,7 +130,7 @@ resource "fortios_firewall_policy" "corp_portainer" {
     name = "Web Access"
   }
   service {
-    name = "Portainer"
+    name = "PORTAINER"
   }
   service {
     name = "PING"

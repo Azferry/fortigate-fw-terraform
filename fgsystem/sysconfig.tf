@@ -1,5 +1,5 @@
 
-resource "fortios_system_global" "trname" {
+resource "fortios_system_global" "sysconfig_global" {
   admin_sport = 443
   admin_port = 80
   alias       = "FG80F"
