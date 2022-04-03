@@ -8,5 +8,5 @@ resource "fortios_system_dns" "sys_dns" {
   retry                    = 2
   secondary                = "1.0.0.1"
   timeout                  = 5
-  interface = "wan2"
+  interface                = "wan2"
 }

@@ -1,5 +1,5 @@
 locals {
-  
+
   # Wan Interface
   wan_interface = "wan1"
 
@@ -12,4 +12,8 @@ locals {
   # IOT Network
   iot_addresses = ""
   iot_interface = "VLAN_30_IOT"
+
+  # Internal Zone
+  internal_zone_interface = "inside-zone"
+
 }

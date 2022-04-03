@@ -1,10 +1,10 @@
 
 resource "fortios_firewall_policy" "corp_web_access" {
-  action             = "accept"
-  logtraffic         = "utm"
-  name               = "corp.wan.allow.web"
-  schedule           = "always"
-  nat                = "enable"
+  action     = "accept"
+  logtraffic = "utm"
+  name       = "corp.wan.allow.web"
+  schedule   = "always"
+  nat        = "enable"
 
   dstaddr {
     name = "all"
@@ -30,12 +30,12 @@ resource "fortios_firewall_policy" "corp_web_access" {
 
 
 resource "fortios_firewall_policy" "corp_zoom" {
-  action             = "accept"
-  logtraffic         = "utm"
-  name               = "corp.wan.allow.zoom"
-  schedule           = "always"
-  nat                = "enable"
-  internet_service   = "enable"
+  action           = "accept"
+  logtraffic       = "utm"
+  name             = "corp.wan.allow.zoom"
+  schedule         = "always"
+  nat              = "enable"
+  internet_service = "enable"
 
   dstaddr {
     name = "all"
@@ -68,11 +68,11 @@ resource "fortios_firewall_security_policyseq" "corp_web_zoom" {
 
 
 resource "fortios_firewall_policy" "corp_azsrvbus" {
-  action             = "accept"
-  logtraffic         = "utm"
-  name               = "corp.wan.allow.azservicebus"
-  schedule           = "always"
-  nat                = "enable"
+  action     = "accept"
+  logtraffic = "utm"
+  name       = "corp.wan.allow.azservicebus"
+  schedule   = "always"
+  nat        = "enable"
 
   dstaddr {
     name = "all"
@@ -104,11 +104,11 @@ resource "fortios_firewall_security_policyseq" "corp_web_azsrvbus" {
 }
 
 resource "fortios_firewall_policy" "corp_portainer" {
-  action             = "accept"
-  logtraffic         = "utm"
-  name               = "corp.inside.allow.portainer"
-  schedule           = "always"
-  nat                = "disable"
+  action     = "accept"
+  logtraffic = "utm"
+  name       = "corp.inside.allow.portainer"
+  schedule   = "always"
+  nat        = "disable"
 
   dstaddr {
     name = "grp-portainer"

@@ -1,10 +1,10 @@
 
 resource "fortios_firewall_policy" "iot_all" {
-  action             = "accept"
-  logtraffic         = "utm"
-  name               = "iot.wan.allow.all"
-  schedule           = "always"
-  nat                = "enable"
+  action     = "accept"
+  logtraffic = "utm"
+  name       = "iot.wan.allow.all"
+  schedule   = "always"
+  nat        = "enable"
 
   dstaddr {
     name = "all"
