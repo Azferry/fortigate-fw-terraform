@@ -13,7 +13,9 @@ locals {
   iot_addresses = ""
   iot_interface = "VLAN_30_IOT"
 
-  # Internal Zone
+  # Zones
   internal_zone_interface = "inside-zone"
+  outside_zone_interface = "outside-zone"
+
 
 }

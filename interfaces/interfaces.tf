@@ -2,8 +2,21 @@
 /*
 internal trunk interface
 */
-resource "fortios_system_interface" "interface_internal_trunk" {
+
+resource "fortios_system_interface" "interface_wan_trunk" {
   name        = "po0"
+  type        = "aggregate"
+  vdom        = "root"
+  alias       = "wan-trunk"
+  role        = "WAN"
+  mode        = "dhcp"
+  member {
+    interface_name =  "internal3"
+  } 
+}
+
+resource "fortios_system_interface" "interface_internal_trunk" {
+  name        = "po1"
   type        = "aggregate"
   vdom        = "root"
   alias       = "internal-trunk"
@@ -11,6 +24,9 @@ resource "fortios_system_interface" "interface_internal_trunk" {
   ip          = "192.168.2.1 255.255.255.0"
   allowaccess = local.administrative_nic_access_ipv4
 }
+
+
+
 
 /*
 Vlan_lan
@@ -60,5 +76,15 @@ resource "fortios_system_zone" "internal_zone" {
   description = "Internal network traffic"
   interface {
     interface_name = fortios_system_interface.interface_internal_trunk.name
+  }
+}
+
+
+resource "fortios_system_zone" "outside_zone" {
+  intrazone   = "deny"
+  name        = "outside-zone"
+  description = "Wan network traffic"
+  interface {
+    interface_name = fortios_system_interface.interface_wan_trunk.name
   }
 }

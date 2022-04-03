@@ -2,7 +2,7 @@
 resource "fortios_firewall_policy" "corp_web_access" {
   action     = "accept"
   logtraffic = "utm"
-  name       = "corp.wan.allow.web"
+  name       = "corp.outside.allow.web"
   schedule   = "always"
   nat        = "enable"
 
@@ -11,7 +11,7 @@ resource "fortios_firewall_policy" "corp_web_access" {
   }
 
   dstintf {
-    name = local.wan_interface
+    name = local.outside_zone_interface
   }
 
   srcaddr {
@@ -28,49 +28,10 @@ resource "fortios_firewall_policy" "corp_web_access" {
 
 }
 
-
-resource "fortios_firewall_policy" "corp_zoom" {
-  action           = "accept"
-  logtraffic       = "utm"
-  name             = "corp.wan.allow.zoom"
-  schedule         = "always"
-  nat              = "enable"
-  internet_service = "enable"
-
-  dstaddr {
-    name = "all"
-  }
-
-  dstintf {
-    name = local.wan_interface
-  }
-
-  srcaddr {
-    name = local.corp_addresses
-  }
-
-  srcintf {
-    name = local.corp_interface
-  }
-
-  internet_service_name {
-    name = "Zoom.us-Zoom.Meeting"
-  }
-
-}
-
-resource "fortios_firewall_security_policyseq" "corp_web_zoom" {
-  policy_src_id         = fortios_firewall_policy.corp_zoom.policyid
-  policy_dst_id         = fortios_firewall_policy.corp_web_access.policyid
-  alter_position        = "after"
-  enable_state_checking = true
-}
-
-
 resource "fortios_firewall_policy" "corp_azsrvbus" {
   action     = "accept"
   logtraffic = "utm"
-  name       = "corp.wan.allow.azservicebus"
+  name       = "corp.outside.allow.azservicebus"
   schedule   = "always"
   nat        = "enable"
 
@@ -79,7 +40,7 @@ resource "fortios_firewall_policy" "corp_azsrvbus" {
   }
 
   dstintf {
-    name = local.wan_interface
+    name = local.outside_zone_interface
   }
 
   srcaddr {
@@ -103,6 +64,8 @@ resource "fortios_firewall_security_policyseq" "corp_web_azsrvbus" {
   enable_state_checking = true
 }
 
+
+## TODO: Cleanup use zones or move to AG
 resource "fortios_firewall_policy" "corp_portainer" {
   action     = "accept"
   logtraffic = "utm"

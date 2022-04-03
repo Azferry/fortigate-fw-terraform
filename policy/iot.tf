@@ -2,7 +2,7 @@
 resource "fortios_firewall_policy" "iot_all" {
   action     = "accept"
   logtraffic = "utm"
-  name       = "iot.wan.allow.all"
+  name       = "iot.outside.allow.all"
   schedule   = "always"
   nat        = "enable"
 
@@ -11,7 +11,7 @@ resource "fortios_firewall_policy" "iot_all" {
   }
 
   dstintf {
-    name = local.wan_interface
+    name = local.outside_zone_interface
   }
 
   srcaddr {
