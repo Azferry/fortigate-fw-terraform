@@ -6,7 +6,7 @@ internal trunk interface
 resource "fortios_system_interface" "interface_wan_trunk" {
   name        = "po0"
   type        = "aggregate"
-  vdom        = "root"
+  vdom        = local.vdom
   alias       = "wan-trunk"
   role        = "WAN"
   mode        = "dhcp"
@@ -18,7 +18,7 @@ resource "fortios_system_interface" "interface_wan_trunk" {
 resource "fortios_system_interface" "interface_internal_trunk" {
   name        = "po1"
   type        = "aggregate"
-  vdom        = "root"
+  vdom        = local.vdom
   alias       = "internal-trunk"
   role        = "LAN"
   ip          = "192.168.2.1 255.255.255.0"
@@ -34,7 +34,7 @@ Vlan_lan
 resource "fortios_system_interface" "vlan_lan" {
   name                  = "vlan.0025"
   type                  = "vlan"
-  vdom                  = "root"
+  vdom                  = local.vdom
   alias                 = "main-vlan"
   ip                    = "192.168.25.1 255.255.255.0"
   role                  = "LAN"

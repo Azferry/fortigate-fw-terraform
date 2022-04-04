@@ -8,7 +8,6 @@ export "FORTIOS_ACCESS_TOKEN"="<token>"
 
 
 
-
 ARM_ACCESS_KEY=key
 terraform init `
   -backend-config="resource_group_name=ntc-prd-wus3-terra-rg01" `

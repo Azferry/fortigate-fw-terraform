@@ -183,3 +183,31 @@ resource "fortios_firewall_policy" "pol_zoom" {
   }
 
 }
+
+resource "fortios_firewall_policy" "pol_geolocation" {
+  action     = "deny"
+  logtraffic = "utm"
+  name       = "inside.outside.deny.georegion"
+  schedule   = "always"
+
+  dstaddr {
+    name = "fol-geographic-regions"
+  }
+
+  dstintf {
+    name = local.outside_zone_interface
+  }
+
+  srcaddr {
+    name = "all"
+  }
+
+  srcintf {
+    name = local.internal_zone_interface
+  }
+
+  service {
+    name = "ALL"
+  }
+
+}
