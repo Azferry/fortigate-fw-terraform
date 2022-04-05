@@ -32,6 +32,13 @@ locals {
       ip     = "192.168.25.1 255.255.255.0"
       role   = "lan"
       vlanid = 25
+    },
+    infa_lan = {
+      name   = "vlan.0100"
+      alias  = "infa-vlan"
+      ip     = "192.168.100.1 255.255.255.0"
+      role   = "lan"
+      vlanid = 100
     }
   }
 
