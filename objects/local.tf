@@ -4,6 +4,7 @@ locals {
   geolocation_obj_color_id  = 9
   subnet_obj_color_id       = 3
   addressgroup_obj_color_id = 4
+  fw_service_obj_color_id   = 2
 
   geo_locations = {
     china = {
@@ -37,6 +38,26 @@ locals {
       interface = "any"
     }
   }
+
+  service_objects = {
+    servicebus = {
+      name      = "AMPQ"
+      iprange    = "0.0.0.0"
+      protocol = "TCP/UDP/SCTP"
+      tcp_portrange = "5671 5672 443 9350 9354"
+      comment = "Msg service port used for Azure Service Bus"
+    },
+    portainer = {
+      name      = "PORTAINER"
+      iprange    = "0.0.0.0"
+      protocol = "TCP/UDP/SCTP"
+      tcp_portrange = "8000 9000"
+      comment = "Portainer ports for docker"
+    }
+
+  }
+
+
 
 # BUG - VLAN not assinging to interface for the object
   address_iot_groups = {

@@ -1,27 +1,17 @@
 
+/*
+Custom service objects to hold ports
+*/
 
-resource "fortios_firewallservice_custom" "ampq" {
+resource "fortios_firewallservice_custom" "custom_service" {
+  for_each   = local.service_objects
   app_service_type = "disable"
   category         = "Custom Apps"
-  color            = 2
-  iprange          = "0.0.0.0"
-  name             = "AMPQ"
-  protocol         = "TCP/UDP/SCTP"
-  tcp_portrange    = "5671 5672 443 9350 9354"
+  color            = local.fw_service_obj_color_id
+  iprange          = each.value["iprange"]
+  name             = each.value["name"]
+  protocol         = each.value["protocol"]
+  tcp_portrange    = each.value["tcp_portrange"]
   visibility       = "enable"
-  comment          = "Used for Azure Service Bus"
-}
-
-
-
-resource "fortios_firewallservice_custom" "portainer" {
-  app_service_type = "disable"
-  category         = "Custom Apps"
-  color            = 2
-  iprange          = "0.0.0.0"
-  name             = "PORTAINER"
-  protocol         = "TCP/UDP/SCTP"
-  tcp_portrange    = "8000 9000"
-  visibility       = "enable"
-  comment          = "Portainer ports for docker"
+  comment          = each.value["comment"]
 }

@@ -15,3 +15,7 @@ terraform init `
   -backend-config="container_name=tf-state-firewall" `
   -backend-config="key=tf_deploy_fortigate.tfstate"
 
+## Manual Steps
+Issues with the tf module that dont update when configured. These steps will have to be done manually.
+### Network Interfaces 
+-  

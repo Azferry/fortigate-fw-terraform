@@ -8,7 +8,7 @@ resource "fortios_system_interface" "interface_wan_trunk" {
   type        = "aggregate"
   vdom        = local.vdom
   alias       = "wan-trunk"
-  role        = "WAN"
+  role        = "wan"
   mode        = "dhcp"
   member {
     interface_name =  "internal3"
@@ -20,9 +20,10 @@ resource "fortios_system_interface" "interface_internal_trunk" {
   type        = "aggregate"
   vdom        = local.vdom
   alias       = "internal-trunk"
-  role        = "LAN"
+  role        = "lan"
   ip          = "192.168.2.1 255.255.255.0"
   allowaccess = local.administrative_nic_access_ipv4
+  device_identification = "enable"
 }
 
 
@@ -37,8 +38,8 @@ resource "fortios_system_interface" "vlan_lan" {
   vdom                  = local.vdom
   alias                 = "main-vlan"
   ip                    = "192.168.25.1 255.255.255.0"
-  role                  = "LAN"
-  device_identification = "enabled"
+  role                  = "lan"
+  device_identification = "enable"
   vlanid                = 25
   interface             = fortios_system_interface.interface_internal_trunk.name
   allowaccess           = local.administrative_nic_access_ipv4
@@ -51,15 +52,15 @@ resource "fortios_systemdhcp_server" "vlan_lan_dhcp" {
   interface       = fortios_system_interface.vlan_lan.name
   netmask         = "255.255.255.0"
   status          = "enable"
-  ntp_server1     = "192.168.52.22"
+  # ntp_server1     = "192.168.52.22"
   dns_service     = "default"
-  default_gateway = "192.168.1.1"
+  default_gateway = "192.168.25.1"
   fosid           = 1
 
   ip_range {
-    end_ip   = "192.168.20.225"
+    end_ip   = "192.168.25.225"
     id       = 1
-    start_ip = "192.168.20.25"
+    start_ip = "192.168.25.25"
   }
 
   depends_on = [
