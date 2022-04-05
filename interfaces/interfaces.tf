@@ -4,43 +4,68 @@ internal trunk interface
 */
 
 resource "fortios_system_interface" "interface_wan_trunk" {
-  name        = "po0"
-  type        = "aggregate"
-  vdom        = local.vdom
-  alias       = "wan-trunk"
-  role        = "wan"
-  mode        = "dhcp"
-  member {
-    interface_name =  "internal3"
-  } 
+  name  = "po0"
+  type  = "aggregate"
+  vdom  = local.vdom
+  alias = "wan-trunk"
+  role  = "wan"
+  mode  = "dhcp"
+  dynamic "member" {
+    for_each = local.wan_trunk_interfaces
+    content {
+      interface_name = member.value
+    }
+  }
 }
 
 resource "fortios_system_interface" "interface_internal_trunk" {
-  name        = "po1"
-  type        = "aggregate"
-  vdom        = local.vdom
-  alias       = "internal-trunk"
-  role        = "lan"
-  ip          = "192.168.2.1 255.255.255.0"
-  allowaccess = local.administrative_nic_access_ipv4
+  name                  = "po1"
+  type                  = "aggregate"
+  vdom                  = local.vdom
+  alias                 = "internal-trunk"
+  role                  = "lan"
+  ip                    = "192.168.2.1 255.255.255.0"
+  allowaccess           = local.administrative_nic_access_ipv4
   device_identification = "enable"
 }
 
+resource "fortios_systemdhcp_server" "interface_internal_trunk_dhcp" {
+  interface       = fortios_system_interface.interface_internal_trunk.name
+  netmask         = "255.255.255.0"
+  status          = "enable"
+  dns_service     = "specify"
+  dns_server1     = local.default_dns_server1
+  dns_server2     = local.default_dns_server2
+  default_gateway = "192.168.1.1"
+  fosid           = 100
+  ntp_service     = "default"
 
+  ip_range {
+    end_ip   = "192.168.1.255"
+    id       = 100
+    start_ip = "192.168.1.25"
+  }
+
+  depends_on = [
+    fortios_system_interface.interface_internal_trunk
+  ]
+}
 
 
 /*
-Vlan_lan
+internal vlans 
 */
-resource "fortios_system_interface" "vlan_lan" {
-  name                  = "vlan.0025"
+
+resource "fortios_system_interface" "internal_vlan" {
+  for_each              = local.internal_trunk_vlans
+  name                  = each.value["name"]
   type                  = "vlan"
   vdom                  = local.vdom
-  alias                 = "main-vlan"
-  ip                    = "192.168.25.1 255.255.255.0"
-  role                  = "lan"
+  alias                 = each.value["alias"]
+  ip                    = each.value["ip"]
+  role                  = each.value["role"]
   device_identification = "enable"
-  vlanid                = 25
+  vlanid                = each.value["vlanid"]
   interface             = fortios_system_interface.interface_internal_trunk.name
   allowaccess           = local.administrative_nic_access_ipv4
   depends_on = [
@@ -48,23 +73,30 @@ resource "fortios_system_interface" "vlan_lan" {
   ]
 }
 
+/*
+vlan dhcp server
+*/
 resource "fortios_systemdhcp_server" "vlan_lan_dhcp" {
-  interface       = fortios_system_interface.vlan_lan.name
-  netmask         = "255.255.255.0"
+  for_each        = local.internal_trunk_vlans_dhcp
+  interface       = each.value["interface"]
+  netmask         = each.value["netmask"]
   status          = "enable"
-  # ntp_server1     = "192.168.52.22"
-  dns_service     = "default"
-  default_gateway = "192.168.25.1"
-  fosid           = 1
+  dns_service     = each.value["dns_service"]
+  dns_server1     = each.value["dns_server1"]
+  dns_server2     = each.value["dns_server2"]
+  default_gateway = each.value["default_gateway"]
+  fosid           = each.value["fosid"]
+  ntp_service     = "default"
 
   ip_range {
-    end_ip   = "192.168.25.225"
-    id       = 1
-    start_ip = "192.168.25.25"
+    end_ip   = each.value["end_ip"]
+    id       = each.value["ip_range_id"]
+    start_ip = each.value["starting_ip"]
   }
 
   depends_on = [
-    fortios_system_interface.interface_internal_trunk
+    fortios_system_interface.interface_internal_trunk,
+    fortios_system_interface.internal_vlan
   ]
 }
 
@@ -75,17 +107,30 @@ resource "fortios_system_zone" "internal_zone" {
   intrazone   = "deny"
   name        = "inside-zone"
   description = "Internal network traffic"
-  interface {
-    interface_name = fortios_system_interface.interface_internal_trunk.name
+  dynamic "interface" {
+    for_each = local.zone_inside_interfaces
+    content {
+      interface_name = interface.value
+    }
   }
+  depends_on = [
+    fortios_system_interface.interface_internal_trunk
+  ]
 }
-
 
 resource "fortios_system_zone" "outside_zone" {
   intrazone   = "deny"
   name        = "outside-zone"
   description = "Wan network traffic"
-  interface {
-    interface_name = fortios_system_interface.interface_wan_trunk.name
+
+  dynamic "interface" {
+    for_each = local.zone_outside_interfaces
+    content {
+      interface_name = interface.value
+    }
   }
+
+  depends_on = [
+    fortios_system_interface.interface_wan_trunk
+  ]
 }
