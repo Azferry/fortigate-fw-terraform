@@ -17,11 +17,11 @@ provider "fortios" {
 
 module "fw_system" {
   source             = "./fgsystem"
-  dns_primary_ipv4   = "1.1.1.1"
-  dns_secondary_ipv4 = "1.0.0.1"
-  dns_interface      = "wan2"
-  system_alias       = "FG80F"
-  system_hostname    = "FG80F"
+  dns_primary_ipv4   = var.dns_primary_ipv4
+  dns_secondary_ipv4 = var.dns_secondary_ipv4
+  dns_interface      = var.dns_interface
+  system_alias       = var.system_alias
+  system_hostname    = var.system_hostname
 }
 
 module "fw_objects" {

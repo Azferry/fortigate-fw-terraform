@@ -2,7 +2,6 @@
 /*
 internal trunk interface
 */
-
 resource "fortios_system_interface" "interface_wan_trunk" {
   name  = "po0"
   type  = "aggregate"
