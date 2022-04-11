@@ -82,3 +82,28 @@ address_iot_groups = {
   }
 
 }
+
+/*
+Schedule Objects
+*/
+schedule_objects = {
+  weekday_allday = {
+    day   = "monday tuesday wednesday thursday friday"
+    end   = "00:00"
+    name  = "weekday-allday"
+    start = "00:00"
+  },
+  weekends_allday = {
+    day   = "sunday saturday"
+    end   = "00:00"
+    name  = "weekend-allday"
+    start = "00:00"
+  }
+  weekday_bizhours = {
+    day   = "monday tuesday wednesday thursday friday"
+    end   = "06:00"
+    name  = "weekday-bizhours"
+    start = "16:00"
+  }
+
+}

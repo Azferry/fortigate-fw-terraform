@@ -109,3 +109,24 @@ variable "address_iot_groups" {
     }
   }
 }
+
+/*
+Schedule objects 
+*/
+variable "schedule_objects" {
+  description = "Schedule objects"
+  type = map(object({
+    day   = string
+    end   = string
+    name  = string
+    start = string
+  }))
+  default = {
+    weekends_allday = {
+      day   = "monday tuesday wednesday thursday friday "
+      end   = "00:00"
+      name  = "weekday-allday"
+      start = "00:00"
+    }
+  }
+}

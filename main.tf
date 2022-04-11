@@ -30,6 +30,7 @@ module "fw_objects" {
   service_objects        = var.service_objects
   address_grp_shared_srv = var.address_grp_shared_srv
   address_iot_groups     = var.address_iot_groups
+  schedule_objects       = var.schedule_objects
 }
 
 module "fw_interfaces" {
