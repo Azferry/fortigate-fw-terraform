@@ -4,7 +4,7 @@ Custom service objects to hold ports
 */
 
 resource "fortios_firewallservice_custom" "custom_service" {
-  for_each   = local.service_objects
+  for_each   = var.service_objects
   app_service_type = "disable"
   category         = "Custom Apps"
   color            = local.fw_service_obj_color_id

@@ -25,8 +25,11 @@ module "fw_system" {
 }
 
 module "fw_objects" {
-  source = "./objects"
-
+  source                 = "./objects"
+  geo_locations          = var.geo_locations
+  service_objects        = var.service_objects
+  address_grp_shared_srv = var.address_grp_shared_srv
+  address_iot_groups     = var.address_iot_groups
 }
 
 module "fw_interfaces" {
@@ -38,3 +41,9 @@ module "fw_policy" {
   source = "./policy"
 
 }
+
+module "vpn_forticlient" {
+  source = "./vpn-p2s"
+
+}
+

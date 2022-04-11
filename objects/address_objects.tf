@@ -3,7 +3,7 @@ IOT services
 */
 
 resource "fortios_firewall_address" "grp_addr_iot" {
-  for_each   = local.address_iot_groups
+  for_each   = var.address_iot_groups
   color      = local.subnet_obj_color_id
   name       = each.value["name"]
   subnet     = each.value["subnet"]
@@ -21,7 +21,7 @@ resource "fortios_firewall_addrgrp" "grp_iot_devices" {
   comment    = "Shared infastructure services for policy"
 
   dynamic "member" {
-    for_each = local.address_iot_groups
+    for_each = var.address_iot_groups
     content {
       name = member.value["name"]
     }
@@ -37,7 +37,7 @@ Infasturcture shared services
 */
 
 resource "fortios_firewall_address" "grp_addr_sharedservices" {
-  for_each   = local.address_grp_shared_srv
+  for_each   = var.address_grp_shared_srv
   color      = local.subnet_obj_color_id
   name       = each.value["name"]
   subnet     = each.value["subnet"]
@@ -54,7 +54,7 @@ resource "fortios_firewall_addrgrp" "grp_sharedservices" {
   comment    = "Shared infastructure services for policy"
 
   dynamic "member" {
-    for_each = local.address_grp_shared_srv
+    for_each = var.address_grp_shared_srv
     content {
       name = member.value["name"]
     }
@@ -70,7 +70,7 @@ Geo Regions Address Objects for use in policy
 https://www.iban.com/country-codes
 */
 resource "fortios_firewall_address" "geo_region_address" {
-  for_each   = local.geo_locations
+  for_each   = var.geo_locations
   color      = local.geolocation_obj_color_id
   country    = each.value["country"]
   name       = each.value["name"]
@@ -87,7 +87,7 @@ resource "fortios_firewall_addrgrp" "folder_georegions" {
   comment    = "Geolocations for policy"
 
   dynamic "member" {
-    for_each = local.geo_locations
+    for_each = var.geo_locations
     content {
       name = member.value["name"]
     }
