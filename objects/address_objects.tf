@@ -9,7 +9,7 @@ resource "fortios_firewall_address" "grp_addr_iot" {
   subnet     = each.value["subnet"]
   type       = "subnet"
   visibility = "enable"
-  interface  = each.value["interface"]
+  associated_interface  = each.value["interface"]
 }
 
 resource "fortios_firewall_addrgrp" "grp_iot_devices" {
@@ -43,7 +43,7 @@ resource "fortios_firewall_address" "grp_addr_sharedservices" {
   subnet     = each.value["subnet"]
   type       = "subnet"
   visibility = "enable"
-  interface  = each.value["interface"]
+  associated_interface  = each.value["interface"]
 }
 resource "fortios_firewall_addrgrp" "grp_sharedservices" {
   color      = local.addressgroup_obj_color_id

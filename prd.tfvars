@@ -57,8 +57,59 @@ service_objects = {
     tcp_portrange = "8443"
     udp_portrange = ""
     comment       = "Alternative to https (8443)"
+  },
+  # https://kb.synology.com/en-me/DSM/tutorial/What_network_ports_are_used_by_Synology_services
+  synology = {
+    name          = "SYNOLOGY_UI"
+    iprange       = "0.0.0.0"
+    protocol      = "TCP/UDP/SCTP"
+    tcp_portrange = "5000 5001"
+    udp_portrange = ""
+    comment       = "Synology Web DSM access on tcp ports 5000 (http) and 5001 (https)"
+  },
+  AFP = {
+    name          = "AFP"
+    iprange       = "0.0.0.0"
+    protocol      = "TCP/UDP/SCTP"
+    tcp_portrange = "548"
+    udp_portrange = ""
+    comment       = ""
+  },
+  FTP_OVER_TLS = {
+    name          = "FTP_OVER_TLS"
+    iprange       = "0.0.0.0"
+    protocol      = "TCP/UDP/SCTP"
+    tcp_portrange = "1025-65535"
+    udp_portrange = ""
+    comment       = ""
+  },
+  FTP_OVER_SSL = {
+    name          = "FTP_OVER_SSL"
+    iprange       = "0.0.0.0"
+    protocol      = "TCP/UDP/SCTP"
+    tcp_portrange = "20"
+    udp_portrange = ""
+    comment       = ""
+  },
+  CIFS = {
+    name          = "CIFS"
+    iprange       = "0.0.0.0"
+    protocol      = "TCP/UDP/SCTP"
+    tcp_portrange = "139 445"
+    udp_portrange = "137 138"
+    comment       = ""
+  },
+  iSCSI = {
+    name          = "iSCSI"
+    iprange       = "0.0.0.0"
+    protocol      = "TCP/UDP/SCTP"
+    tcp_portrange = "3265 3263 3260"
+    udp_portrange = ""
+    comment       = ""
   }
+
 }
+
 
 /*
 Address groups for shared serviecs
