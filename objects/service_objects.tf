@@ -12,6 +12,7 @@ resource "fortios_firewallservice_custom" "custom_service" {
   name             = each.value["name"]
   protocol         = each.value["protocol"]
   tcp_portrange    = each.value["tcp_portrange"]
+  udp_portrange    = each.value["udp_portrange"]
   visibility       = "enable"
   comment          = each.value["comment"]
 }

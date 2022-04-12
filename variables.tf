@@ -59,6 +59,7 @@ variable "service_objects" {
     iprange       = string
     protocol      = string
     tcp_portrange = string
+    udp_portrange = string
     comment       = string
   }))
   default = {
@@ -67,6 +68,7 @@ variable "service_objects" {
       iprange       = "0.0.0.0"
       protocol      = "TCP/UDP/SCTP"
       tcp_portrange = "5671 5672 443 9350 9354"
+      udp_portrange = ""
       comment       = "Msg service port used for Azure Service Bus"
     }
   }

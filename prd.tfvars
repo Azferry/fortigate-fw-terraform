@@ -39,6 +39,7 @@ service_objects = {
     iprange       = "0.0.0.0"
     protocol      = "TCP/UDP/SCTP"
     tcp_portrange = "5671 5672 443 9350 9354"
+    udp_portrange = ""
     comment       = "Msg service port used for Azure Service Bus"
   },
   portainer = {
@@ -46,7 +47,16 @@ service_objects = {
     iprange       = "0.0.0.0"
     protocol      = "TCP/UDP/SCTP"
     tcp_portrange = "8000 9000"
+    udp_portrange = ""
     comment       = "Portainer ports for docker"
+  },
+  https_alt = {
+    name          = "HTTPS_ALT"
+    iprange       = "0.0.0.0"
+    protocol      = "TCP/UDP/SCTP"
+    tcp_portrange = "8443"
+    udp_portrange = ""
+    comment       = "Alternative to https (8443)"
   }
 }
 
@@ -57,17 +67,17 @@ address_grp_shared_srv = {
   unificontroller = {
     name      = "grp-unificontroller"
     subnet    = "192.168.1.10 255.255.255.255"
-    interface = "any"
+    interface = "inside-zone"
   },
   pihole = {
     name      = "grp-pihole"
     subnet    = "192.168.1.53 255.255.255.255"
-    interface = "any"
+    interface = "inside-zone"
   },
   portainer = {
     name      = "grp-portainer"
     subnet    = "192.168.1.53 255.255.255.255"
-    interface = "any"
+    interface = "inside-zone"
   }
 }
 
@@ -78,7 +88,7 @@ address_iot_groups = {
   huecontroller = {
     name      = "grp-huecontroller"
     subnet    = "192.168.30.3 255.255.255.255"
-    interface = "VLAN_30_IOT"
+    interface = "vlan.0075"
   }
 
 }
