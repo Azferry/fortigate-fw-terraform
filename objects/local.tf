@@ -18,4 +18,41 @@ locals {
       member_srv = ["SMB", "FTP", "NFS", "TFTP", "FTP_OVER_TLS", "FTP_OVER_SSL","CIFS", "iSCSI"]
     }
   }
+
+  address_obj = {
+    ntaddsfl1pp001 = {
+      name      = "grp-ntaddsfl1pp001"
+      subnet    = "192.168.100.5/24"
+      interface = "vlan.0100"
+    },
+    ntaddsfl1pv001 = {
+      name      = "grp-ntaddsfl1pv001"
+      subnet    = "192.168.100.10/24"
+      interface = "vlan.0100"
+    }
+
+  }
+
+  address_groups = {
+    adds = {
+      name      = "grp-adds"
+      comments  = "Active Directory Servers"
+      address_objects = ["grp-ntaddsfl1pv001", "grp-ntaddsfl1pp001"]
+    }
+
+  }
+
+  ## To clean
+  # address_objects_w_groups = {
+
+  #   domain_controllers = {
+  #     adr_grp_name = "grp-domaincontrollers"
+  #     address_obj = [{
+  #       name      = "adr-ntaddsfl1pp001"
+  #       subnet    = "192.168.100.5 255.255.255.255"
+  #       interface = "vlan.100"
+  #     }]
+  #   }
+  # }
+  
 }

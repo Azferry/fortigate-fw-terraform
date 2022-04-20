@@ -138,7 +138,7 @@ Address groups for IOT Devices
 address_iot_groups = {
   huecontroller = {
     name      = "grp-huecontroller"
-    subnet    = "192.168.30.3 255.255.255.255"
+    subnet    = "192.168.75.25 255.255.255.255"
     interface = "vlan.0075"
   }
 

@@ -97,3 +97,8 @@ resource "fortios_firewall_addrgrp" "folder_georegions" {
     fortios_firewall_address.geo_region_address
   ]
 }
+
+/*
+TODO Cleanup and have one loop for address objects and the address group 
+implement cleaner 
+*/
