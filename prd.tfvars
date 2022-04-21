@@ -110,7 +110,6 @@ service_objects = {
 
 }
 
-
 /*
 Address groups for shared serviecs
 */
@@ -118,17 +117,17 @@ address_grp_shared_srv = {
   unificontroller = {
     name      = "grp-unificontroller"
     subnet    = "192.168.1.10 255.255.255.255"
-    interface = "inside-zone"
+    interface = "po1"
   },
   pihole = {
     name      = "grp-pihole"
-    subnet    = "192.168.1.53 255.255.255.255"
-    interface = "inside-zone"
+    subnet    = "192.168.1.56 255.255.255.255"
+    interface = "po1"
   },
   portainer = {
     name      = "grp-portainer"
-    subnet    = "192.168.1.53 255.255.255.255"
-    interface = "inside-zone"
+    subnet    = "192.168.1.56 255.255.255.255"
+    interface = "po1"
   }
 }
 

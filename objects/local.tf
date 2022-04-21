@@ -14,8 +14,8 @@ locals {
       name      = "file share"
       iprange    = "0.0.0.0"
       proxy = "disable"
-      comment = "File share group "
-      member_srv = ["SMB", "FTP", "NFS", "TFTP", "FTP_OVER_TLS", "FTP_OVER_SSL","CIFS", "iSCSI"]
+      comment = "File share group"
+      member_srv = ["SMB", "FTP", "AFP","RTSP","NFS", "TFTP", "FTP_OVER_TLS", "FTP_OVER_SSL","CIFS", "iSCSI"]
     }
   }
 
@@ -41,18 +41,5 @@ locals {
     }
 
   }
-
-  ## To clean
-  # address_objects_w_groups = {
-
-  #   domain_controllers = {
-  #     adr_grp_name = "grp-domaincontrollers"
-  #     address_obj = [{
-  #       name      = "adr-ntaddsfl1pp001"
-  #       subnet    = "192.168.100.5 255.255.255.255"
-  #       interface = "vlan.100"
-  #     }]
-  #   }
-  # }
   
 }

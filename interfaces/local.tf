@@ -67,18 +67,18 @@ locals {
       ip_range_id     = 101
       fosid           = 101
     },
-    # corp_lan_dhcp = {
-    #   interface       = "vlan.0050"
-    #   netmask         = "255.255.255.0"
-    #   dns_service     = "specify"
-    #   dns_server1     = local.default_dns_server1
-    #   dns_server2     = local.default_dns_server2
-    #   default_gateway = "192.168.50.1"
-    #   end_ip          = "192.168.50.225"
-    #   starting_ip     = "192.168.50.25"
-    #   ip_range_id     = 102
-    #   fosid           = 102
-    # # },
+    corp_lan_dhcp = {
+      interface       = "vlan.0050"
+      netmask         = "255.255.255.0"
+      dns_service     = "specify"
+      dns_server1     = local.ntc_dns_server1
+      dns_server2     = local.ntc_dns_server2
+      default_gateway = "192.168.50.1"
+      end_ip          = "192.168.50.225"
+      starting_ip     = "192.168.50.25"
+      ip_range_id     = 102
+      fosid           = 102
+    },
     iot_lan_dhcp = {
       interface       = "vlan.0075"
       netmask         = "255.255.255.0"

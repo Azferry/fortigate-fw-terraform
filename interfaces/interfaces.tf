@@ -23,7 +23,7 @@ resource "fortios_system_interface" "interface_internal_trunk" {
   vdom                  = local.vdom
   alias                 = "internal-trunk"
   role                  = "lan"
-  ip                    = "192.168.2.1 255.255.255.0"
+  ip                    = "192.168.1.1 255.255.255.0"
   allowaccess           = local.administrative_nic_access_ipv4
   device_identification = "enable"
 }
@@ -33,16 +33,16 @@ resource "fortios_systemdhcp_server" "interface_internal_trunk_dhcp" {
   netmask         = "255.255.255.0"
   status          = "enable"
   dns_service     = "specify"
-  dns_server1     = local.default_dns_server1
-  dns_server2     = local.default_dns_server2
-  default_gateway = "192.168.2.1"
+  dns_server1     = "192.168.100.5"
+  dns_server2     = "192.168.100.10"
+  default_gateway = "192.168.1.1"
   fosid           = 100
   ntp_service     = "default"
 
   ip_range {
-    end_ip   = "192.168.2.255"
+    end_ip   = "192.168.1.254"
     id       = 100
-    start_ip = "192.168.2.25"
+    start_ip = "192.168.1.50"
   }
 
   depends_on = [
