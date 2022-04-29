@@ -106,6 +106,14 @@ service_objects = {
     tcp_portrange = "3265 3263 3260"
     udp_portrange = ""
     comment       = ""
+  },
+  HUE = {
+    name          = "HUE"
+    iprange       = "0.0.0.0"
+    protocol      = "TCP/UDP/SCTP"
+    tcp_portrange = "80 443"
+    udp_portrange = "80 123"
+    comment       = ""
   }
 
 }

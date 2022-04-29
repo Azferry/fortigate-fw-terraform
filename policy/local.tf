@@ -28,4 +28,13 @@ locals {
   ### INFA ###
   infa_vlan_addresses = ""
   infa_vlan = "vlan.0100"
+
+  /*
+  New Vars - Cleanup
+  */
+  INFA_VLAN = "vlan.0100"
+  HOME_VLAN = "vlan.0025"
+  INTERNAL_TRUNK = "po1"
+  IOT_VLAN = "vlan.0075"
+  CORP_VLAN = "vlan.0050"
 }

@@ -130,26 +130,75 @@ resource "fortios_firewall_policy" "pol_trunk_ssh" {
   schedule   = "always"
   nat        = "enable"
 
-  dstaddr {
-    name = "all"
-  }
+  dstaddr { name = "all" }
 
-  dstintf {
-    name = local.infa_vlan
-  }
+  dstintf { name = local.internal_zone_interface } 
 
-  srcaddr {
-    name = "all"
-  }
+  srcaddr { name = "all" }
 
-  srcintf {
-    name = local.internal_zone_interface
-  }
+  srcintf { name = local.home_vlan }
 
-  service {
-    name = "SSH"
-  }
+  service { name = "SSH" }
 }
+
+resource "fortios_firewall_policy" "home_hue" {
+  action     = "accept"
+  logtraffic = "utm"
+  name       = "home.iot.allow.hue"
+  schedule   = "always"
+  nat        = "enable"
+
+  dstaddr { name = "grp-huecontroller" }
+
+  dstintf { name = local.IOT_VLAN }
+
+  srcaddr { name = "all" }
+
+  srcintf { name = local.HOME_VLAN }
+
+  service { name = "HUE" }
+}
+
+resource "fortios_firewall_policy" "home_unifi" {
+  action     = "accept"
+  logtraffic = "utm"
+  name       = "home.po1.allow.unifipi"
+  schedule   = "always"
+  nat        = "enable"
+
+  dstaddr { name = "Clone of grp-unificontroller" }
+
+  dstintf { name = local.INTERNAL_TRUNK }
+
+  srcaddr { name = "all" }
+
+  srcintf { name = local.HOME_VLAN }
+
+  service { name = "HTTPS_ALT" }
+}
+
+resource "fortios_firewall_policy" "home_portainer" {
+  action     = "accept"
+  logtraffic = "utm"
+  name       = "home.po1.allow.portainer"
+  schedule   = "always"
+  nat        = "enable"
+
+  dstaddr { name = "Pi-Portainer01" }
+
+  dstintf { name = local.INTERNAL_TRUNK }
+
+  srcaddr { name = "all" }
+
+  srcintf { name = local.HOME_VLAN }
+
+  service { name = "PING" }
+  service { name = "HTTPS_ALT" }
+  service { name = "PORTAINER" }
+  service { name = "Web Access" }
+}
+
+
 # resource "fortios_firewall_security_policyseq" "corp_web_portainer" {
 #   policy_src_id         = fortios_firewall_policy.pol_nas_home.policyid
 #   policy_dst_id         = fortios_firewall_policy.home_web.policyid
