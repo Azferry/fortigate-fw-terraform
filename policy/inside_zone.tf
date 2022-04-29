@@ -48,7 +48,7 @@ resource "fortios_firewall_policy" "pol_inside_o365" {
   }
 
   srcintf {
-    name = local.internal_zone_interface
+    name = local.corp_vlan
   }
 
   internet_service_name {
@@ -90,7 +90,7 @@ resource "fortios_firewall_policy" "pol_dropbox" {
   }
 
   srcintf {
-    name = local.internal_zone_interface
+    name = local.corp_vlan
   }
 
   internet_service_name {
@@ -142,7 +142,7 @@ resource "fortios_firewall_policy" "pol_azure" {
   }
 
   srcintf {
-    name = local.internal_zone_interface
+    name = local.corp_vlan
   }
 
   internet_service_name {
@@ -157,7 +157,7 @@ resource "fortios_firewall_policy" "pol_azure" {
 resource "fortios_firewall_policy" "pol_zoom" {
   action     = "accept"
   logtraffic = "utm"
-  name       = "inside.outside.allow.zoom"
+  name       = "corp.outside.allow.zoom"
   schedule   = "always"
   nat        = "enable"
   internet_service = "enable"

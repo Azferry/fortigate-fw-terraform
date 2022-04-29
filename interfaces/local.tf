@@ -8,7 +8,7 @@ locals {
   ntc_dns_server2                = "192.168.100.10"
   vdom                           = "root"
   
-  wan_trunk_interfaces = ["internal3"]
+  wan_trunk_interfaces = ["wan1","wan2"]
   /*
   Interface Zones
   */

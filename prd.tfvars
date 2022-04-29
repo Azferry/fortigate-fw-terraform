@@ -144,7 +144,7 @@ address_iot_groups = {
 }
 
 /*
-Schedule Objects
+Schedule Objects used in the policy
 */
 schedule_objects = {
   weekday_allday = {

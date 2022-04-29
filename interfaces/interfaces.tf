@@ -26,6 +26,9 @@ resource "fortios_system_interface" "interface_internal_trunk" {
   ip                    = "192.168.1.1 255.255.255.0"
   allowaccess           = local.administrative_nic_access_ipv4
   device_identification = "enable"
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "fortios_systemdhcp_server" "interface_internal_trunk_dhcp" {
@@ -48,6 +51,9 @@ resource "fortios_systemdhcp_server" "interface_internal_trunk_dhcp" {
   depends_on = [
     fortios_system_interface.interface_internal_trunk
   ]
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 
@@ -69,6 +75,9 @@ resource "fortios_system_interface" "internal_vlan" {
   depends_on = [
     fortios_system_interface.interface_internal_trunk
   ]
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 /*
@@ -96,6 +105,9 @@ resource "fortios_systemdhcp_server" "vlan_lan_dhcp" {
     fortios_system_interface.interface_internal_trunk,
     fortios_system_interface.internal_vlan
   ]
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 /*
@@ -114,6 +126,9 @@ resource "fortios_system_zone" "internal_zone" {
   depends_on = [
     fortios_system_interface.interface_internal_trunk
   ]
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "fortios_system_zone" "outside_zone" {
@@ -130,4 +145,7 @@ resource "fortios_system_zone" "outside_zone" {
 
   depends_on = [
   ]
+  lifecycle {
+    prevent_destroy = true
+  }
 }

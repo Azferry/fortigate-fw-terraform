@@ -26,6 +26,10 @@ resource "fortios_firewall_policy" "corp_web_access" {
     name = "Web Access"
   }
 
+  service {
+    name = "NTP"
+  }
+
 }
 
 resource "fortios_firewall_policy" "corp_azsrvbus" {
